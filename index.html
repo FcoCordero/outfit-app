@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Outfit Builder MVP</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header class="topbar">
+    <h1>Outfit Builder <span class="badge">MVP</span></h1>
+    <nav>
+      <button id="openAddBtn" class="btn">➕ Agregar prenda</button>
+      <button id="saveOutfitBtn" class="btn">💾 Guardar outfit</button>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <section class="canvas" aria-label="Lienzo del outfit">
+      <div class="manikin">
+        <!-- Torso base (capa 1) -->
+        <div id="torso_base_shape" class="shape torso base" title="Torso (base)"></div>
+        <!-- Torso capa (capa 2 encima) -->
+        <div id="torso_layer_shape" class="shape torso layer" title="Torso (capa)"></div>
+        <!-- Cabeza -->
+        <div id="head_shape" class="shape head" title="Cabeza"></div>
+        <!-- Inferior -->
+        <div id="lower_shape" class="shape lower" title="Parte inferior"></div>
+        <!-- Pies -->
+        <div id="feet_shape" class="shape feet" title="Pies"></div>
+      </div>
+      <div class="labels" id="canvasLabels"></div>
+    </section>
+
+    <section class="controls" aria-label="Controles">
+      <div class="card">
+        <h2>Estilos</h2>
+        <div id="styleFilters" class="chips">
+          <label><input type="checkbox" value="casual"> Casual</label>
+          <label><input type="checkbox" value="formal"> Formal</label>
+          <label><input type="checkbox" value="urbano"> Urbano</label>
+          <label><input type="checkbox" value="deportivo"> Deportivo</label>
+          <label><input type="checkbox" value="minimalista"> Minimalista</label>
+        </div>
+        <p class="hint">Las sugerencias respetarán estos estilos si los seleccionas.</p>
+      </div>
+
+      <div class="card selectors">
+        <h2>Selector por partes</h2>
+        <div class="selector-row" data-part="cabeza">
+          <span class="part">Cabeza</span>
+          <button class="nav prev" aria-label="Anterior">◀</button>
+          <span class="value" id="val_cabeza">—</span>
+          <button class="nav next" aria-label="Siguiente">▶</button>
+        </div>
+        <div class="selector-row" data-part="torso_base">
+          <span class="part">Torso (base)</span>
+          <button class="nav prev">◀</button>
+          <span class="value" id="val_torso_base">—</span>
+          <button class="nav next">▶</button>
+        </div>
+        <div class="selector-row" data-part="torso_layer">
+          <span class="part">Torso (capa)</span>
+          <button class="nav prev">◀</button>
+          <span class="value" id="val_torso_layer">—</span>
+          <button class="nav next">▶</button>
+        </div>
+        <div class="selector-row" data-part="inferior">
+          <span class="part">Inferior</span>
+          <button class="nav prev">◀</button>
+          <span class="value" id="val_inferior">—</span>
+          <button class="nav next">▶</button>
+        </div>
+        <div class="selector-row" data-part="pies">
+          <span class="part">Pies</span>
+          <button class="nav prev">◀</button>
+          <span class="value" id="val_pies">—</span>
+          <button class="nav next">▶</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Sugerencias de color</h2>
+        <div id="colorChips" class="chips"></div>
+        <div id="suggestedItems"></div>
+      </div>
+
+      <div class="card">
+        <h2>Outfits guardados</h2>
+        <ul id="outfitsList" class="list"></ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal agregar prenda -->
+  <dialog id="addModal">
+    <form method="dialog" id="addForm" class="modal">
+      <h3>Nueva prenda</h3>
+      <label>Nombre<br><input id="addName" required></label>
+      <label>Parte del cuerpo<br>
+        <select id="addPart" required>
+          <option value="cabeza">Cabeza</option>
+          <option value="torso_base">Torso (base)</option>
+          <option value="torso_layer">Torso (capa)</option>
+          <option value="inferior">Parte inferior</option>
+          <option value="pies">Pies</option>
+        </select>
+      </label>
+      <label>Color<br><input type="color" id="addColor" value="#6aa9ff"></label>
+      <fieldset>
+        <legend>Estilos</legend>
+        <label><input type="checkbox" value="casual"> Casual</label>
+        <label><input type="checkbox" value="formal"> Formal</label>
+        <label><input type="checkbox" value="urbano"> Urbano</label>
+        <label><input type="checkbox" value="deportivo"> Deportivo</label>
+        <label><input type="checkbox" value="minimalista"> Minimalista</label>
+      </fieldset>
+      <menu>
+        <button value="cancel">Cancelar</button>
+        <button id="confirmAdd" value="default" class="btn">Agregar</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <footer class="footer">
+    <small>Hecho con ❤️ · Datos en tu navegador (LocalStorage)</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
